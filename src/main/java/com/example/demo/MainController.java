@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
+
+    // Mapping index page
     @GetMapping("/")
     public String index() {
-        System.out.println("open");
         return "index";
     }
 }
