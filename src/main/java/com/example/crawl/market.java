@@ -14,18 +14,19 @@ import java.net.URLEncoder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 public class market {
     public static void main(String[] args) {
         ArrayList<String[]> itemList = homeplus("꼬깔콘");
 
-        // for(String[] item: itemList) {
-        //     System.out.println("===== New item =====");
-        //     System.out.println("상품명 : " + item[0]);
-        //     System.out.println("가격 : " + item[1]);
-        //     System.out.println("단가 : " + item[2]);
-        //     System.out.println("사진 URL : " + item[3]);
-        // }
+        for(String[] item: itemList) {
+            System.out.println("===== New item =====");
+            System.out.println("상품명 : " + item[0]);
+            System.out.println("가격 : " + item[1]);
+            System.out.println("단가 : " + item[2]);
+            System.out.println("사진 URL : " + item[3]);
+        }
     }
 
     /**
@@ -69,27 +70,31 @@ public class market {
             String url = "https://front.homeplus.co.kr/express/search/item.json?addSubCategoryYn=Y&inputKeyword=" + uriItem + "&originalSearchYn=N&page=1&perPage=40&searchKeyword=" + uriItem + "&searchType=NONE&sort=RANK";
             String doc = Jsoup.connect(url).userAgent("Mozilla").ignoreContentType(true).execute().body();
 
-            System.out.println(doc);
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(doc);
 
-            System.out.println(jsonObject.get("data"));
+            JSONObject data = (JSONObject) jsonObject.get("data");
 
-            // Element items = doc.getElementsByClass("itemDisplayList").get(0); // 아이템이 있는 Div 가져오기
-            // Elements itemDivs = items.getElementsByClass("unitItemBox");
+            JSONArray dataArray = (JSONArray) data.get("dataList");
 
-            // for(Element e: itemDivs) {
-            //     if(e.html().contains("즉시배송")) {
-            //         String name = e.getElementsByClass("css-12cdo53-defaultStyle-Typography-ellips").get(0).text(); // Item name
-            //         String price = e.getElementsByClass("priceValue").get(0).text(); // Item price
-            //         String unitPrice = e.getElementsByClass("priceQty").get(0).text(); // Item unit price
-            //         // String imageUrl = e.getElementsByClass("mnemitem_thmb_img").attr("src"); // Item image path
+            if(dataArray.size() > 0) {
+                for (int i = 0; i < dataArray.size(); i++) {
+                    JSONObject obj = (JSONObject) dataArray.get(i);
+                    String name = (String) obj.get("itemNm");
+                    String price = Long.toString((long) obj.get("salePrice"));
 
-            //         System.out.println(name + price + unitPrice);
-            //     }
-            // }
+                    String unitQty = Long.toString((long) obj.get("unitQty"));
+                    String unitMeasure = (String) obj.get("unitMeasure");
+                    String unitPrice = Double.toString((double) obj.get("unitPrice"));
+                    String itemNo = (String) obj.get("itemNo");
 
-
+                    String unitInfos = unitQty + unitMeasure + " 당 " + unitPrice + "원";
+                    String imageUrl = "https://image.homeplus.kr/it/" + itemNo + "s0270";
+                    String[] tempArr = {name, price, unitInfos, imageUrl};
+    
+                    itemList.add(tempArr);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException p) {
