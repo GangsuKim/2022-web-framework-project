@@ -18,7 +18,7 @@ import org.json.simple.JSONArray;
 
 public class market {
     public static void main(String[] args) {
-        ArrayList<String[]> itemList = homeplus("꼬깔콘");
+        ArrayList<String[]> itemList = lotte("꼬깔콘");
 
         for(String[] item: itemList) {
             System.out.println("===== New item =====");
@@ -62,6 +62,11 @@ public class market {
         return itemList;
     }
 
+    /**
+     * 홈플러스의 상품 정보 크롤링
+     * @param item 문자열 형태의 상품명
+     * @return ArrayList 형태 [["상품명", "상품 가격", "상품 단가", "상품 사진 경로"], ... ]
+     */
     static ArrayList<String[]> homeplus(String item) {
         ArrayList<String[]> itemList = new ArrayList<>();
 
@@ -99,6 +104,34 @@ public class market {
             e.printStackTrace();
         } catch (ParseException p) {
             p.printStackTrace();
+        }
+
+        return itemList;
+    }
+
+    static ArrayList<String[]> lotte(String item) {
+        ArrayList<String[]> itemList = new ArrayList<>();
+
+        try {
+            Document doc = Jsoup.connect("https://www.lotteon.com/search/search/search.ecn?&u2=0&u3=60&render=qapi&platform=pc&collection_id=301&q=" + URLEncoder.encode(item, "UTF-8") + "&x_param=&mallId=4&u7=qd&u16=ranking.desc").userAgent("Mozilla").get();
+            Elements items = doc.getElementsByClass("srchProductItem"); // 아이템이 있는 Div 가져오기
+            // System.out.println(items);
+            // Elements itemDivs = items.getElementsByClass("mnemitem_goods"); // 상품 각각에 대해서 불러오기
+    
+            for(Element e: items) {
+                if(e.text().contains("바로배송")) {
+                    String name = e.getElementsByClass("srchProductUnitTitle").get(0).text(); // Item name
+                    String price = e.getElementsByClass("s-product-price__number").get(0).text(); // Item price
+                    String unitPrice = e.getElementsByClass("s-product-price__unit").text(); // Item unit price
+                    String imageUrl = e.getElementsByTag("img").get(0).attr("src"); // Item image path
+    
+                    String[] tempArr = {name, price, unitPrice, imageUrl};
+    
+                    itemList.add(tempArr);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return itemList;
