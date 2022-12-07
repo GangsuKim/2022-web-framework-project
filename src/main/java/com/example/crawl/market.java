@@ -109,6 +109,11 @@ public class market {
         return itemList;
     }
 
+    /**
+     * 롯데마트의 상품 정보 크롤링
+     * @param item 문자열 형태의 상품명
+     * @return ArrayList 형태 [["상품명", "상품 가격", "상품 단가", "상품 사진 경로"], ... ]
+     */
     static ArrayList<String[]> lotte(String item) {
         ArrayList<String[]> itemList = new ArrayList<>();
 
