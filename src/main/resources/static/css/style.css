@@ -1,0 +1,248 @@
+/* Top Nav Bar */
+.topBar {
+    background-color: #294A57;
+    width: 100%;
+    height: 70px;
+
+    /* Positioning */
+    z-index: 10;
+}
+
+.topBar > .title {
+    color: white;
+    font-family: 'ReceipeKorea';
+    font-size: 30px;
+    padding: 19px;
+}
+
+.map-box {
+    width: 75%;
+    display: inline-block;
+    height: 100%;
+    position: relative;
+}
+
+/* Map Style */
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: inline-block;
+}
+
+/* 상단 컨트롤러 */
+.top-controller {
+    position: absolute;
+    /* background-color: black; */
+    width: 100%;
+    height: 40px;
+    z-index: 20;
+    top: 10px;
+}
+
+.slider-box {
+    width: 490px;
+    height: calc(100% - 10px);
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    position: relative;
+}
+
+.slider-box > #slider {
+    -webkit-appearance: none;
+    width: 90%; /* 슬라이더 길이 */
+    height: 8px; /* 슬라이더 두께 */
+    border-radius: 5px; /* 슬라이더 모서리를 약간 둥글게 */
+    background: #ccc; /* 슬라이더 색상 */
+    outline: none; /* 슬라이더 테두리 없이 */
+}
+
+.slider-box > #slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px; /* 슬라이더 핸들 길이 */
+    height: 15px; /* 슬라이더 핸들 높이 */
+    border-radius: 50%; /* 핸들 모양을 원모양으로 만들기 위함 */
+    background: #294A57; /* 슬라이더 핸들 색상 */
+    cursor: pointer; /* 슬라이더 핸들에 마우스를 갖다대면 포인터로 변경 */
+}
+
+.slider-box > #slider::-moz-range-thumb {
+    width: 15px; /* 슬라이더 핸들 길이 */
+    height: 15px; /* 슬라이더 핸들 높이 */
+    border-radius: 50%; /* 핸들 모양을 원모양으로 만들기 위함 */
+    background: #294A57; /* 슬라이더 핸들 색상 */
+    cursor: pointer; /* 슬라이더 핸들에 마우스를 갖다대면 포인터로 변경 */
+}
+
+
+.slider-box > .checkbox-box {
+    /* background-color: yellow; */
+    display: inline-block;
+    width: 6%;
+    
+    /* Positioning */
+    position: absolute;
+    right: 0px;
+    height: calc(100% - 10px);
+    text-align: center;
+    border-left: 1px solid rgb(145, 145, 145);
+    margin-right: 5px;
+}
+
+.slider-box > .checkbox-box > input[type=checkbox] {
+    margin-top: 8.5px;
+}
+
+.slider-box > .checkbox-box > input[type=checkbox]:hover {
+    cursor: pointer;
+}
+
+main {
+    height: calc(100% - 70px);
+    font-size: 0px;
+    color: #404040;
+    font-family: 'ReceipeKorea';
+}
+
+/* 오른쪽 박스 */
+.right-box {
+    position: absolute;
+    top: 70px;
+    display: inline-block;
+    width: calc(25% - 40px);
+    height: calc(100% - 90px);
+    background-color: #F2F2F2;
+    
+    padding: 10px 20px;
+    z-index: 0;
+
+    font-size: 18px;
+}
+
+.right-box > .star > .title{
+    margin-top: 5px;
+    font-size: 27px;
+}
+
+.right-box > .star > .star-box > img {
+    margin-left: 10px;
+    width: 60px;
+}
+
+.right-box > .star > .star-box > p {
+    font-size: 58px;
+    display: inline-block;
+    transform: translateY(-11px);
+}
+
+.right-box > .star > .oneline {
+    margin-left: 10px;
+    font-family: 'Cafe24Simplehae';
+    font-size: 24px;
+    transform: translateY(-18px);
+}
+
+.right-box > .comment-box > .title {
+    margin-top: 5px;
+    font-size: 27px;
+    margin-top: 10px;
+}
+
+.right-box > .comment-box {
+    height: calc(100% - 154px);
+}
+
+.right-box > .comment-box > .comment-box-inner {
+    height: calc(100% - 36px);
+    overflow-y: auto;
+    width: 100%;
+    position: relative;
+}
+
+/* 한마디 박스 */
+.right-box > .comment-box > .comment-box-inner > .comment {
+    font-family: 'Cafe24Simplehae';
+    background-color: white;
+    width: calc(100% - 37px);
+    /* height: 30px; */
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 10px;
+
+    box-shadow: 0px 0px 10px #00000017;
+}
+
+/* .right-box > .comment-box > .comment-box-inner > .comment:first-child {
+    margin-top: 30px;
+} */
+
+.right-box > .comment-box > .comment-box-inner > .comment:last-child {
+    margin-bottom: 20px;
+}
+
+.comment-box-inner > .comment > .name {
+    display: inline-block;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.comment-box-inner > .comment > .date {
+    opacity: 0.6;
+    position: absolute;
+    font-size: 24px;
+    display: inline-block;
+    right: 15px;
+    font-weight: bold;
+}
+
+.comment-box-inner > .comment > .value {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 23px;
+    text-align: justify;
+}
+
+.comment-box-inner > .top-shadow {
+    width: inherit;
+    height: 30px;
+    background: linear-gradient(
+        to top,
+        rgba(242, 242, 242, 0) 20%,
+        rgba(242, 242, 242, 0.25) 30%,
+        rgba(242, 242, 242, 0.5) 50%,
+        rgba(242, 242, 242, 0.75) 75%,
+        rgba(242, 242, 242, 1) 100%
+    );
+    position: fixed;
+    z-index: 6;
+}
+
+.comment-box-inner > .bottom-shadow {
+    width: inherit;
+    height: 30px;
+    background: linear-gradient(
+        to bottom,
+        rgba(242, 242, 242, 0) 20%,
+        rgba(242, 242, 242, 0.25) 30%,
+        rgba(242, 242, 242, 0.5) 50%,
+        rgba(242, 242, 242, 0.75) 75%,
+        rgba(242, 242, 242, 1) 100%
+    );
+    position: fixed;
+    bottom: 0;
+    z-index: 6;
+    transform: translateY(5px);
+}
+
+@media screen and (max-width: 1200px) {
+    .right-box {
+        width: 260px;
+    }
+
+    .map-box {
+        width: calc(100% - 300px);
+    }
+}
