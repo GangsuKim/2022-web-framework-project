@@ -18,12 +18,19 @@
 
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     </head>
 
     <body>
         <div class="topBar">
             <p class="title">ROOMER</p>
+            <div class="login-box">
+                <p class="login"><i class="bi bi-box-arrow-in-right"></i> &nbsp;로그인</p>
+            </div>
         </div>
+
         <main>
             <div class="map-box">
                 <div class="top-controller">

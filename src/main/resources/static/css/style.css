@@ -13,6 +13,36 @@
     font-family: 'ReceipeKorea';
     font-size: 30px;
     padding: 19px;
+    display: inline-block;
+}
+
+.topBar > .login-box {
+    height: 70px;
+    width: 140px;
+    display: inline-block;
+    /* background-color: black; */
+    position: absolute;
+    right: 0px;
+    line-height: 39px;
+}
+
+.topBar > .login-box > .login {
+    margin-top: 5px;
+    color: white;
+    font-size: 20px;
+    display: inline-block;
+    font-family: 'ReceipeKorea';
+}
+
+.topBar > .login-box > .login:hover {
+    color: #a8b0b3;
+    cursor: pointer;
+}
+
+.topBar > .login-box > .login > i {
+    font-size: 39px;
+    display: inline-block;
+    transform: translateY(7px);
 }
 
 .map-box {
