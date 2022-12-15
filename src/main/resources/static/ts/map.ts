@@ -1,7 +1,6 @@
 const kakao = (window as any).kakao; // kakao 에러 방지
 var customOverlay;
-// import { sha256 } from '../js/sha256';
-// import sha256 from 'crypto-js/sha256';
+
 
 var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
 var options = {
@@ -68,18 +67,29 @@ function searchDetailAddrFromCoords(coords: any, callback: Function) {
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
 
-async function setOverlayOnMap(address: String, position: any, map: any) {
+async function setOverlayOnMap(address: string, position: any, map: any) {
     if (customOverlay != null) {
         customOverlay.setMap(null);
     }
 
+    console.log(address)
+
     await ps.keywordSearch(address, (res: any, status: any) => {
-        var place_name = '정보 없음'; // 장소 이름의 기본값
+        var place_name: String = '정보 없음'; // 장소 이름의 기본값
+        let place_address: String;
+        var isPublicPlace: Boolean = false;
+
         if(res.length != 0) { // 만약 검색된 장소가 존재할 경우
-            console.log(res)
+            // console.log(res)
             // 해당 장소들 중 주거시설로 등록된 주소지만 가져온다.
             const living_things = res.filter((place) => {
                 const pl_name: String = place.category_name;
+                
+                // 주소 중 공공기관 / 학교가 하나라도 포함되어 있다면 예외처리
+                if(pl_name.includes('공공기관') || pl_name.includes('학교')) {
+                    isPublicPlace = true;
+                }
+
                 return pl_name.includes('부동산 > 주거시설');
             })
 
@@ -109,6 +119,9 @@ async function setOverlayOnMap(address: String, position: any, map: any) {
             yAnchor: 1.05
         });
 
-        customOverlay.setMap(map);
+        // 공공기관이 아닐 경우에만 출력
+        if(!isPublicPlace) {
+            customOverlay.setMap(map);
+        }
     });
 }
