@@ -35,10 +35,10 @@ public class RoomController {
     @GetMapping(value = "/room/create")
     public String create(@RequestParam(value = "id", required = true, defaultValue = "-1") String id, Model model) throws NoSuchAlgorithmException{
         if(roomdb.select(encrypt(id)) != null) {
-            model.addAttribute("addres", id);
+            model.addAttribute("address", id);
             return "/room/create";
         }
-        return "/room/create";
+        return "redirect:/";
     }
 
     /**

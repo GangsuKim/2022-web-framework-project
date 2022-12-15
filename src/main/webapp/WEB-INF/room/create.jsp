@@ -37,7 +37,7 @@
                     <input type="text" name="placeName" id="placeName"> <br>
 
                     <p class="info-title" style="margin-top: 20px;">건물 주소</p>
-                    <input type="text" name="placeName" id="placeName"> <br>
+                    <input type="text" name="address" id="address" value="${address}" readonly> <br>
 
                     <input type="submit" value="등록하기">
 
