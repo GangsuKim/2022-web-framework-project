@@ -3,11 +3,15 @@ package com.example.demo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.eclipse.core.internal.resources.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.db.RoomDB;
 import com.example.resources.UserInfo;
@@ -28,6 +32,13 @@ public class RoomController {
         if(userInfo.isLogined()) {
             roomdb.create(room);
         }
+    }
+
+    @GetMapping(value = "/room/info/{id}")
+    public String getRoomInfo(@PathVariable("id") String id, Model model) throws NoSuchAlgorithmException {
+        Room selectedRoom = roomdb.select(encrypt(id));
+        System.out.println(selectedRoom.toString());
+        return "/room/info";
     }
 
     // Assets
