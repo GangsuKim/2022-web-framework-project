@@ -36,6 +36,13 @@ public class UserController {
         return "/login/index";
     }
 
+    @GetMapping(value = "/logout")
+    public String logout(Model model) {
+        System.out.println("[LOG] logout: " + userInfo.getUserName());
+        userInfo.logout();
+        return "redirect:/";
+    }
+
     // 회원가입 페이지
     @GetMapping(value = "/register")
     public String register(Model model) {
@@ -67,7 +74,7 @@ public class UserController {
             if(selectUser != null) { 
                 if(selectUser.getPasswd().equals(usr.getPasswd())) {
                     // passwd 가 일치
-                    System.out.println("로그인 완료");
+                    System.out.println("[LOG] login: " + selectUser.getUsername());
                     userInfo.login(selectUser.getId(), selectUser.getUsername());
                     return "redirect:/";
                 }
