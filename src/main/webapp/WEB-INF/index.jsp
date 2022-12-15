@@ -14,10 +14,15 @@
         <link rel="stylesheet" href="./css/scroll.css">
 
         <!-- Kakao Map API -->
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03b766d9319c5acf32c24de7281e3949"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03b766d9319c5acf32c24de7281e3949&libraries=services"></script>
 
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- SHA256 -->
+        <script src="./js/sha256.js"></script>
+
+
     </head>
 
     <body>

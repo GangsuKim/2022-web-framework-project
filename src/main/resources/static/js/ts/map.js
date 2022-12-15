@@ -1,5 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var kakao = window.kakao; // kakao 에러 방지
-// import { sha256 } from '../js/sha256';
+var sha256_1 = require("../js/sha256");
 // import sha256 from 'crypto-js/sha256';
 var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
 var options = {
@@ -19,7 +21,7 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
         if (status == kakao.maps.services.Status.OK) {
             ps.keywordSearch(result[0].address.address_name, function (res, inner_status) {
                 if (inner_status == kakao.maps.services.Status.OK) {
-                    console.log(sha256(res[0].x + res[0].y));
+                    console.log((0, sha256_1.sha256)(res[0].x + res[0].y));
                 }
             });
         }

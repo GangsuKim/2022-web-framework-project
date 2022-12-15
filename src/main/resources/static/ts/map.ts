@@ -1,5 +1,6 @@
 const kakao = (window as any).kakao; // kakao 에러 방지
-// const $ = (window as any);
+// import { sha256 } from '../js/sha256';
+// import sha256 from 'crypto-js/sha256';
 
 var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
 var options = {
@@ -9,12 +10,24 @@ var options = {
 };
 
 var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+var geocoder = new kakao.maps.services.Geocoder(); // GeoCoder 객체
+var ps = new kakao.maps.services.Places();
 
-// GetCenterPos
-const GetCenterPos = document.getElementById("getCenterPos");
+// 지도 Click 이벤트 발생
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    var latlng = mouseEvent.latLng;
+    const latitude = latlng.getLat();
+    const longitude = latlng.getLng();
 
-GetCenterPos.addEventListener("click", () => {
-  console.log(map.getCenter());
+    searchDetailAddrFromCoords(latlng, (result, status) => {
+        if (status == kakao.maps.services.Status.OK) {
+            ps.keywordSearch(result[0].address.address_name, (res, inner_status) => {
+                if(inner_status == kakao.maps.services.Status.OK) {
+                    console.log(sha256(res[0].x+res[0].y));
+                }
+            });
+        }
+    })
 });
 
 showCvsOnMap(getJson('../data/cvs_coord_data.json'));
@@ -50,3 +63,9 @@ function getJson(url: string): JSON {
     })
     return
 }
+
+// Coords로 주소 검색
+function searchDetailAddrFromCoords(coords: any, callback: Function) {
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
