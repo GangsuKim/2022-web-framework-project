@@ -86,21 +86,43 @@ function getJson(url) {
     });
     return;
 }
+function postJson(url) {
+    $.ajax({
+        type: "post",
+        url: url,
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            return data;
+        }
+    });
+    return;
+}
 // Coords로 주소 검색
 function searchDetailAddrFromCoords(coords, callback) {
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
 function setOverlayOnMap(address, position, map) {
     return __awaiter(this, void 0, void 0, function () {
+        var infoJson;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (customOverlay != null) {
                         customOverlay.setMap(null);
                     }
-                    console.log(address);
+                    $.ajax({
+                        type: "get",
+                        url: 'http://localhost:8082/room/info/' + address,
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            infoJson = data;
+                        }
+                    });
                     return [4 /*yield*/, ps.keywordSearch(address, function (res, status) {
-                            var place_name = '정보 없음'; // 장소 이름의 기본값
+                            var _a;
+                            var place_name = (_a = infoJson === null || infoJson === void 0 ? void 0 : infoJson.placeName) !== null && _a !== void 0 ? _a : true; // 장소 이름의 기본값
                             var place_address;
                             var isPublicPlace = false;
                             if (res.length != 0) { // 만약 검색된 장소가 존재할 경우
@@ -131,6 +153,18 @@ function setOverlayOnMap(address, position, map) {
                                 '    </div>' +
                                 '    <div class="arrow"></div>' +
                                 '</div>';
+                            if (place_name == true) {
+                                content = '    <div class="overlay">' +
+                                    '    <div class="title-bar">' +
+                                    '        <p class="title">정보가 없어요!</p>' +
+                                    '    </div>' +
+                                    '    <p class="please">ROOMER의 기여자가 되어 주세요!</p>' +
+                                    '    <div class="create">' +
+                                    '        <p class="write" onclick="create()"><i class="bi bi-pencil-square"></i> 정보 기입하기</p>' +
+                                    '    </div>' +
+                                    '    <div class="arrow"></div>' +
+                                    '</div>';
+                            }
                             customOverlay = new kakao.maps.CustomOverlay({
                                 position: position,
                                 content: content,
@@ -148,4 +182,7 @@ function setOverlayOnMap(address, position, map) {
             }
         });
     });
+}
+function create() {
+    console.log('Create New');
 }

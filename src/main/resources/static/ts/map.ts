@@ -59,7 +59,20 @@ function getJson(url: string): JSON {
             return data;
         }
     })
-    return
+    return;
+}
+
+function postJson(url: string): JSON {
+    $.ajax({ //jquery ajax
+        type: "post",
+        url: url,
+        dataType: "json",
+        async: false,
+        success: function (data: JSON) {
+            return data;
+        }
+    })
+    return;
 }
 
 // Coords로 주소 검색
@@ -68,14 +81,24 @@ function searchDetailAddrFromCoords(coords: any, callback: Function) {
 }
 
 async function setOverlayOnMap(address: string, position: any, map: any) {
+    let infoJson: any;
+
     if (customOverlay != null) {
         customOverlay.setMap(null);
     }
 
-    console.log(address)
+    $.ajax({ //jquery ajax
+        type: "get",
+        url: 'http://localhost:8082/room/info/' + address,
+        dataType: "json",
+        async: false,
+        success: function (data: JSON) {
+            infoJson = data;
+        }
+    })
 
     await ps.keywordSearch(address, (res: any, status: any) => {
-        var place_name: String = '정보 없음'; // 장소 이름의 기본값
+        var place_name: String | Boolean = infoJson?.placeName ?? true; // 장소 이름의 기본값
         let place_address: String;
         var isPublicPlace: Boolean = false;
 
@@ -112,6 +135,19 @@ async function setOverlayOnMap(address: string, position: any, map: any) {
             '    <div class="arrow"></div>' +
             '</div>';
 
+        if(place_name == true) {
+            content = '    <div class="overlay">'+
+            '    <div class="title-bar">'+
+            '        <p class="title">정보가 없어요!</p>'+
+            '    </div>'+
+            '    <p class="please">ROOMER의 기여자가 되어 주세요!</p>'+
+            '    <div class="create">'+
+            '        <p class="write" onclick="create()"><i class="bi bi-pencil-square"></i> 정보 기입하기</p>'+
+            '    </div>'+
+            '    <div class="arrow"></div>'+
+            '</div>';
+        }
+
         customOverlay = new kakao.maps.CustomOverlay({
             position: position,
             content: content,
@@ -124,4 +160,8 @@ async function setOverlayOnMap(address: string, position: any, map: any) {
             customOverlay.setMap(map);
         }
     });
+}
+
+function create() {
+    console.log('Create New');
 }

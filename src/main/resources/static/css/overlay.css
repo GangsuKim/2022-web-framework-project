@@ -100,3 +100,32 @@
     opacity: 0.6;
     
 }
+
+.overlay > .please {
+    font-family: 'ReceipeKorea';
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: #294A57;
+}
+
+.overlay > .create {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    margin: 10px 0px;
+    font-size: 25px;
+    font-family: 'ReceipeKorea';
+    color: rgb(126, 126, 126);
+}
+
+.overlay > .create > p > i {
+    display: inline-block;
+    font-size: 35px;
+    transform: translateY(6px);
+}
+
+.overlay > .create > .write:hover {
+    color: black;
+    cursor: pointer;
+}

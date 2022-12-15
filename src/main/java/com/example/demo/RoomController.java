@@ -3,15 +3,13 @@ package com.example.demo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.eclipse.core.internal.resources.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.db.RoomDB;
 import com.example.resources.UserInfo;
@@ -34,14 +32,21 @@ public class RoomController {
         }
     }
 
-    @GetMapping(value = "/room/info/{id}")
-    public String getRoomInfo(@PathVariable("id") String id, Model model) throws NoSuchAlgorithmException {
-        Room selectedRoom = roomdb.select(encrypt(id));
-        System.out.println(selectedRoom.toString());
-        return "/room/info";
+    @GetMapping(value = "/room/create")
+    public String create(@RequestParam(value = "id", required = true, defaultValue = "-1") String id, Model model) throws NoSuchAlgorithmException{
+        if(roomdb.select(encrypt(id)) != null) {
+            model.addAttribute("addres", id);
+            return "/room/create";
+        }
+        return "/room/create";
     }
 
-    // Assets
+    /**
+     * SHA256 암호화 Script From : https://bamdule.tistory.com/233
+     * @param text 암호화할 Text 문장
+     * @return sha256 hash text
+     * @throws NoSuchAlgorithmException
+     */
     public String encrypt(String text) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(text.getBytes());

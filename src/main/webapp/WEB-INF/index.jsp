@@ -34,14 +34,6 @@
 
         <main>
             <div class="map-box">
-                <div class="top-controller">
-                    <div class="slider-box">
-                        <input type="range" min="1" max="100" value="100" id="slider">
-                        <div class="checkbox-box">
-                            <input type="checkbox" name="use-range" id="use-range">
-                        </div>
-                    </div>
-                </div>
                 <div id="map"></div>
             </div>
             <div class="right-box">
