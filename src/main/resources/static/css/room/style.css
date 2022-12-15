@@ -99,3 +99,8 @@ main input[type=submit]:hover {
     border: 5px solid #294A57;
     border-radius: 40px;
 }
+
+#address {
+    background-color: rgb(206, 206, 206);
+    color: #202020;
+}
