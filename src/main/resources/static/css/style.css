@@ -18,7 +18,7 @@
 
 .topBar > .login-box {
     height: 70px;
-    width: 140px;
+    width: 70px;
     display: inline-block;
     /* background-color: black; */
     position: absolute;
@@ -27,7 +27,7 @@
 }
 
 .topBar > .login-box > .login {
-    margin-top: 5px;
+    margin-top: 8px;
     color: white;
     font-size: 20px;
     display: inline-block;
@@ -176,7 +176,7 @@ main {
 
 .right-box > .comment-box > .title {
     margin-top: 5px;
-    font-size: 27px;
+    font-size: 1.4vw;
     margin-top: 10px;
 }
 

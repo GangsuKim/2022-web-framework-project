@@ -15,11 +15,12 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
     var latlng = mouseEvent.latLng;
     var latitude = latlng.getLat();
     var longitude = latlng.getLng();
+    // 좌표 -> 주소 -> 해당 주소의 0번째 장소 이름 
     searchDetailAddrFromCoords(latlng, function (result, status) {
         if (status == kakao.maps.services.Status.OK) {
             ps.keywordSearch(result[0].address.address_name, function (res, inner_status) {
                 if (inner_status == kakao.maps.services.Status.OK) {
-                    console.log(sha256(res[0].x + res[0].y));
+                    console.log(res[0].x + res[0].y);
                 }
             });
         }

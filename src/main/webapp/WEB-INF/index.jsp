@@ -19,22 +19,15 @@
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<<<<<<< HEAD
-        <!-- SHA256 -->
-        <script src="./js/sha256.js"></script>
-
-
-=======
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
->>>>>>> 95e1a822a3136c6e410192511f41d83559eac05e
     </head>
 
     <body>
         <div class="topBar">
             <p class="title">ROOMER</p>
             <div class="login-box">
-                <p class="login"><i class="bi bi-box-arrow-in-right"></i> &nbsp;로그인</p>
+                <p class="login" onclick="location.href='./user'"><i class="bi bi-person-circle"></i></p>
             </div>
         </div>
 

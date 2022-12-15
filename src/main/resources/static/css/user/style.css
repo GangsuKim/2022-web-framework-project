@@ -1,0 +1,81 @@
+html, body {
+    background-color: rgba(248, 248, 248);
+}
+
+* {
+    font-family: 'ReceipeKorea';
+    color: #202020;
+}
+
+/* Top Nav Bar */
+.topBar {
+    background-color: #294A57;
+    width: 100%;
+    height: 70px;
+
+    /* Positioning */
+    z-index: 10;
+}
+
+.topBar > .title {
+    color: white;
+    font-family: 'ReceipeKorea';
+    font-size: 30px;
+    padding: 19px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+main {
+    width: calc(35vw - 80px);
+    height: calc(100% - 70px - 90px);
+    margin: 0 auto;
+    background-color: rgba(242, 242, 242);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.144);
+
+    padding: 0px 40px;
+    padding-top: 90px;
+}
+
+main > .title {
+    font-size: 30px;
+}
+
+
+main .info-title {
+    font-size: 30px;
+    font-family: 'Cafe24Simplehae';
+}
+
+main input {
+    width: 100%;
+    margin-top: 10px;
+}
+
+main input[type=text], main input[type=password] {
+    border: none;
+    height: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.041);
+    padding-left: 20px;
+    font-size: 20px;
+    width: calc(100% - 20px);
+}
+
+main input[type=submit] {
+    margin-top: 20px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: #294A57;
+    font-family: 'Cafe24Simplehae';
+    color: white;
+    font-size: 35px;
+
+    cursor: pointer;
+}
+
+main input[type=submit]:hover {
+    background-color: #6791a0;
+
+}
