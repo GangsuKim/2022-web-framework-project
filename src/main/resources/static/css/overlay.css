@@ -1,0 +1,102 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.overlay {
+    width: 360px;
+    /* height: 200px; */
+
+    background-color: white;
+    border-radius: 10px;
+    border: 4px solid #294A57 ;
+    position: relative;
+    padding: 20px;
+}
+
+.overlay > .arrow {
+    width: 30px;
+    height: 30px;
+    background-color: #294A57;
+    position: absolute;
+    bottom: -15px;
+    transform: rotate(45deg);
+    z-index: -1;
+    left: 10px;
+    border-radius: 3px;
+}
+
+.title-bar {
+    border-bottom: 3px solid black;
+}
+
+.title-bar > *{
+    display: inline-block;
+}
+
+.title-bar > .title {
+    font-family: 'ReceipeKorea';
+    font-size: 30px;
+}
+
+.title-bar > .star {
+    position: absolute;
+    right: 20px;
+
+    font-family: 'ReceipeKorea';
+    font-size: 30px;
+    color: rgb(230, 198, 94);
+    transform: translateY(-5px);
+}
+
+.title-bar > .star > img {
+    transform: translateY(5px);
+}
+
+.overlay > .review-box {
+    /* width: 100%; */
+    margin-top: 10px;
+    height: 26px;
+    background-color:#F1F1F1;
+    font-family: 'Cafe24Simplehae';
+    font-size: 20px;
+    line-height: 26px;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+.overlay > .review-box:hover {
+    background-color: rgb(255, 248, 214);
+    cursor: pointer;
+}
+
+.overlay > .review-box > span {
+    font-family: 'ReceipeKorea';
+    display: inline-block;
+    position: absolute;
+    right: 35px;
+    opacity: 0.6;
+    line-height: 30px;
+}
+
+.overlay > .price-box {
+    text-align: center;
+}
+
+.overlay > .price-box > p {
+    display: inline-block;
+    font-family: 'ReceipeKorea';
+    margin: 0;
+}
+
+.overlay > .price-box > .price {
+    font-size: 40px;
+    margin-top: 15px;
+}
+
+.overlay > .price-box > .payback {
+    font-size: 25px;
+    transform: translateY(4px);
+    opacity: 0.6;
+    
+}
