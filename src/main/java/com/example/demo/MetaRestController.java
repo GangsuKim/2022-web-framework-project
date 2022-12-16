@@ -30,6 +30,7 @@ public class MetaRestController {
 
      @GetMapping(value = "/room/info/{id}")
      public Object getRoomInfo(@PathVariable("id") String id) throws NoSuchAlgorithmException {
+        System.out.println(encrypt(id));
          return roomdb.select(encrypt(id));
      }
 

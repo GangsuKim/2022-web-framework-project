@@ -35,6 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var kakao = window.kakao; // kakao 에러 방지
+var overAddress = null;
+var overName = null;
 var customOverlay;
 var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
 var options = {
@@ -54,11 +56,23 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
     searchDetailAddrFromCoords(latlng, function (result, status) {
         if (status == kakao.maps.services.Status.OK) {
             var address = result[0].road_address.address_name;
+            overAddress = address;
             setOverlayOnMap(address, latlng, map);
         }
     });
 });
 showCvsOnMap(getJson('../data/cvs_coord_data.json'));
+window.onload = function () {
+    if (getParameter('message')) {
+        if (getParameter('message') === 'login') {
+            alert('로그인이 필요한 기능 입니다. 로그인을 해 주세요.');
+            history.pushState(null, null, 'http://localhost:8082/');
+        }
+        else {
+            history.pushState(null, null, 'http://localhost:8082/');
+        }
+    }
+};
 // Show all CVS
 function showCvsOnMap(json_data) {
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png";
@@ -121,7 +135,7 @@ function setOverlayOnMap(address, position, map) {
                         }
                     });
                     return [4 /*yield*/, ps.keywordSearch(address, function (res, status) {
-                            var _a;
+                            var _a, _b, _c, _d, _e;
                             var place_name = (_a = infoJson === null || infoJson === void 0 ? void 0 : infoJson.placeName) !== null && _a !== void 0 ? _a : true; // 장소 이름의 기본값
                             var place_address;
                             var isPublicPlace = false;
@@ -141,18 +155,7 @@ function setOverlayOnMap(address, position, map) {
                                     place_name = living_things[0].place_name; // 해당 주소지 배열 중 가장 첫번째의 장소명 저장
                                 }
                             }
-                            var content = '    <div class="overlay">' +
-                                '    <div class="title-bar">' +
-                                '        <p class="title">' + place_name + '</p>' +
-                                '        <div class="star">3.4 <img src="./images/icons/star.png" alt="Star" width="30"></div>' +
-                                '    </div>' +
-                                '    <div class="review-box">좋긴 좋아요 근데 방음이...<span>+32</span></div>' +
-                                '    <div class="price-box">' +
-                                '        <p class="price">30.7만</p>' +
-                                '        <p class="payback">/ 보증금 300만</p>' +
-                                '    </div>' +
-                                '    <div class="arrow"></div>' +
-                                '</div>';
+                            var content;
                             if (place_name == true) {
                                 content = '    <div class="overlay">' +
                                     '    <div class="title-bar">' +
@@ -161,6 +164,27 @@ function setOverlayOnMap(address, position, map) {
                                     '    <p class="please">ROOMER의 기여자가 되어 주세요!</p>' +
                                     '    <div class="create">' +
                                     '        <p class="write" onclick="create()"><i class="bi bi-pencil-square"></i> 정보 기입하기</p>' +
+                                    '    </div>' +
+                                    '    <div class="arrow"></div>' +
+                                    '</div>';
+                            }
+                            else {
+                                overName = place_name;
+                                var review = '    <div class="review-box" onclick="write_review()">리뷰를 작성해 주세요!</div>';
+                                if ((_b = infoJson === null || infoJson === void 0 ? void 0 : infoJson.review_cnt) !== null && _b !== void 0 ? _b : false) {
+                                    if (infoJson.review_cnt != 0) {
+                                        review = '    <div class="review-box">' + (infoJson === null || infoJson === void 0 ? void 0 : infoJson.recent_review) + '<span>+' + (infoJson.review_cnt - 1) + '</span></div>';
+                                    }
+                                }
+                                content = '    <div class="overlay">' +
+                                    '    <div class="title-bar">' +
+                                    '        <p class="title">' + place_name + '</p>' +
+                                    '        <div class="star">' + ((_c = (infoJson === null || infoJson === void 0 ? void 0 : infoJson.avg_star).toFixed(1)) !== null && _c !== void 0 ? _c : 0) + '<img src="./images/icons/star.png" alt="Star" width="30"></div>' +
+                                    '    </div>' +
+                                    review +
+                                    '    <div class="price-box">' +
+                                    '        <p class="price">' + ((_d = infoJson === null || infoJson === void 0 ? void 0 : infoJson.avg_price) !== null && _d !== void 0 ? _d : 0) + '만</p>' +
+                                    '        <p class="payback">/ 보증금 ' + ((_e = infoJson === null || infoJson === void 0 ? void 0 : infoJson.avg_parking) !== null && _e !== void 0 ? _e : 0) + '만</p>' +
                                     '    </div>' +
                                     '    <div class="arrow"></div>' +
                                     '</div>';
@@ -184,5 +208,14 @@ function setOverlayOnMap(address, position, map) {
     });
 }
 function create() {
-    console.log('Create New');
+    location.href = 'http://localhost:8082/room/create?id=' + overAddress;
+}
+function write_review() {
+    location.href = 'http://localhost:8082/room/review?id=' + overAddress + '&name=' + overName;
+}
+https: //gomest.tistory.com/10
+ function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

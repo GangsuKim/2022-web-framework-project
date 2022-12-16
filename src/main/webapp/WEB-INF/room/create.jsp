@@ -32,16 +32,14 @@
             </div>
 
             <div class="right-box">
-                <form action="/room/register.do" method="POST">
+                <form action="/room/register" method="POST">
                     <p class="info-title">건물 이름</p>
                     <input type="text" name="placeName" id="placeName"> <br>
 
                     <p class="info-title" style="margin-top: 20px;">건물 주소</p>
-                    <input type="text" name="address" id="address" value="${address}" readonly> <br>
+                    <input type="text" name="id" id="id" value="${address}" readonly> <br>
 
                     <input type="submit" value="등록하기">
-
-                    <input type="text" name="type" id="type" value="login" hidden>
                 </form>
             </div>
         </main>
